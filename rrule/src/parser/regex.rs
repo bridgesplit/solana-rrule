@@ -2,7 +2,7 @@
 use std::str::FromStr;
 
 use lazy_static::lazy_static;
-use regex::{Captures, Regex};
+use regex_lite::{Captures, Regex};
 
 use super::{content_line::PropertyName, ParseError};
 
