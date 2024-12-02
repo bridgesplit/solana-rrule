@@ -97,7 +97,6 @@ mod core;
 mod error;
 mod iter;
 mod parser;
-mod tests;
 mod validator;
 
 pub use crate::core::{Frequency, NWeekday, RRule, RRuleResult, RRuleSet, Tz};

@@ -6,13 +6,12 @@ rust-version = "1.74.0"
 [workspace]
 members = [
     "rrule",
-    "rrule-debugger",
 ]
 resolver = "2"
 
 # These are the 2 packages to mainly work on.
 # So `cargo test` and `cargo run` both work.
-default-members = ["rrule", "rrule-debugger"]
+default-members = ["rrule"]
 
 [profile.dev]
 # Always have overflow checks until crate is stable, see roadmap.
