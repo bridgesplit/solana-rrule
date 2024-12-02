@@ -2,23 +2,24 @@ use crate::{NWeekday, RRule};
 
 use super::iterinfo::IterInfo;
 
-type RRuleFilter = &'static dyn Fn(&IterInfo, usize, &RRule) -> bool;
+// Replace trait object with concrete function pointer type
+type RRuleFilter = fn(&IterInfo, usize, &RRule) -> bool;
 
+// Static array of function pointers instead of trait objects
 const FILTERS: [RRuleFilter; 7] = [
-    &is_filtered_by_month,
-    &is_filtered_by_week_number,
-    &is_filtered_by_weekday,
-    &is_filtered_by_neg_weekday,
-    &is_filtered_by_easter,
-    &is_filtered_by_month_day,
-    &is_filtered_by_year_day,
+    is_filtered_by_month,
+    is_filtered_by_week_number,
+    is_filtered_by_weekday,
+    is_filtered_by_neg_weekday,
+    is_filtered_by_easter,
+    is_filtered_by_month_day,
+    is_filtered_by_year_day,
 ];
 
 pub(crate) fn is_filtered(ii: &IterInfo, current_day: usize) -> bool {
     let rrule = ii.rrule();
-    FILTERS
-        .into_iter()
-        .any(|filter| filter(ii, current_day, rrule))
+    // Use iterator without conversion
+    FILTERS.iter().any(|filter| filter(ii, current_day, rrule))
 }
 
 fn is_filtered_by_month(ii: &IterInfo, current_day: usize, rrule: &RRule) -> bool {
